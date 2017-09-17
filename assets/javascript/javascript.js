@@ -65,39 +65,43 @@ $(document).on("click", ".showButton", function() {
 
 			var p = $("<p>").text("Rating: " + results[i].rating);
 
-			var showImage = $("<img>").addClass("gif");
+			var showImage = $("<img src ='" + results[i].images.fixed_height_still + "' name='" + results[i].images.fixed_height + "' data-url='" + results[i].images.fixed_height_still + "'>");
 
-			showImage.attr("src", results[i].images.fixed_height_still.url);
+			showImage.addClass("img-rounded");
+
+			showImage.attr("src", results[i].images.fixed_height_still);
 
 			showDiv.append(p);
+
 			showDiv.append(showImage);
 
 			$(".showImages").prepend(showDiv);
 
+			var state = 0;
 
-		$(".gif").on("click", function() {
+				showImage.on("click", function(event) {
 
-			console.log("state");
+					console.log("blah");
 
-			var state = $(this).attr("data-state");
+					if (state === 0) {
 
-			if (state === "fixed_height_still") {
+						$(this).attr("src", ($(this).attr("name")));
+				
+						state = 1;
 
-				$(this).attr("src", $(this).attr("[i].images.fixed_height.url"));
-				$(this).attr("data-state", "[i].images.fixed_height.url");
+				} else if (state === 1) {
 
-			} else {
+					$(this).attr("src", ($(this).attr("data-url")));
+					
+					state = 0;
 
-				$(this).attr("src",$(this).attr("data-fixed_height_still"));
-				$(this).attr("data-state", "fixed_height_still");
+				};
 
-			}
+				});
 
-		});
+			};
 
-	};
-
-});
+	});
 
 });
 
