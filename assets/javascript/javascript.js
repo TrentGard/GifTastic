@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 	console.log("ready");
 
-var topics = ["Aaahh!!! Real Monsters","The Adventures of Pete & Pete","All That","Ren & Stimpy"];
+var topics = ["Aaahh!!! Real Monsters","The Adventures of Pete & Pete","All That","Ren and Stimpy"];
 
 function displayButton () {
 
@@ -65,11 +65,13 @@ $(document).on("click", ".showButton", function() {
 
 			var p = $("<p>").text("Rating: " + results[i].rating);
 
-			var showImage = $("<img src ='" + results[i].images.fixed_height_still + "' name='" + results[i].images.fixed_height + "' data-url='" + results[i].images.fixed_height_still + "'>");
+			var showImage = $("<img>").addClass("gif");
+
+			console.log("results[i].images.fixed_height_still.url");
 
 			showImage.addClass("img-rounded");
 
-			showImage.attr("src", results[i].images.fixed_height_still);
+			showImage.attr("src", results[i].images.fixed_height_still.url).val(i);
 
 			showDiv.append(p);
 
@@ -77,29 +79,29 @@ $(document).on("click", ".showButton", function() {
 
 			$(".showImages").prepend(showDiv);
 
-			var state = 0;
+		};
 
-				showImage.on("click", function(event) {
+			$(".gif").on("click", function() {
 
-					console.log("blah");
+				console.log("state");
 
-					if (state === 0) {
+				var state = $(this).attr("data-state");
 
-						$(this).attr("src", ($(this).attr("name")));
+				if (state !== "animate") {
+
+					$(this).attr("src", results[this.value].images.fixed_height.url);
 				
-						state = 1;
+					$(this).attr("data-state", "animate");
 
-				} else if (state === 1) {
+				} else {
 
-					$(this).attr("src", ($(this).attr("data-url")));
-					
-					state = 0;
+					$(this).attr("src", results[this.value].images.fixed_height_still.url);
+
+					$(this).attr("data-state", "still");
 
 				};
 
-				});
-
-			};
+			});
 
 	});
 
